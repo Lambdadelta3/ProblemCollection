@@ -1,0 +1,78 @@
+class Solution {
+public:
+
+    struct value{
+        int height = 0;
+        int index = -1;
+    };
+    
+    
+    
+    
+    
+    int trap(vector<int>& height) {
+        
+        
+        
+        stack<struct value> vstack;
+        int water = 0;
+        
+        for(int i=0; i<height.size(); i++)
+        {
+            
+            int tempwater=0;
+            int lastIndx =i;
+            while(vstack.size() > 0 && height[i] > vstack.top().height)
+            {
+                
+                struct value v1 = vstack.top();
+                
+                
+                
+                
+                if(vstack.size()>1)
+                {
+                    tempwater += (height[i] - v1.height) * (lastIndx - v1.index);
+                    tempwater += (v1.height - height[lastIndx]) * (lastIndx - v1.index - 1);
+                    lastIndx = v1.index;
+                    vstack.pop();
+                    
+                }
+                else
+                {
+                    tempwater = tempwater - (height[i] - v1.height) * (i - v1.index-1);
+                    tempwater = tempwater + (height[i] - height[lastIndx]) * (lastIndx - v1.index-1);
+                    vstack.pop();
+                }
+            }
+            
+            if(vstack.size()>0)
+                tempwater = tempwater + (height[i] - height[lastIndx]) * (lastIndx - vstack.top().index-1);
+                
+            water = water + tempwater;
+          
+            
+            struct value v;
+            v.height = height[i];
+            v.index = i;
+            
+            vstack.push(v);
+            
+            
+            //cout << "We are at element: " << i << "," << height[i] << " current water: " << water << endl;
+            
+            
+            
+        }
+        
+        
+        
+        
+        return water;
+        
+        
+        
+        
+        
+    }
+};

@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        
+        int product = 1;
+        vector<int> result;
+        bool zero =false;
+        
+        for(int i:nums)
+        {   
+            if(zero == true && i == 0)
+            {
+                for(int i:nums)
+                    result.push_back(0);
+                return result;
+            }
+            
+            if (i==0)
+                zero = true;
+            else
+                product = product * i;
+        }
+        
+        
+        
+        for(int i:nums)
+        {
+            if(zero == true && i == 0)
+                result.push_back(product);
+            else
+                if(zero==true)
+                    result.push_back(0);
+                else
+                    result.push_back(product * pow((float)i, -1));
+        }
+        return result;
+        
+        
+        
+    }
+};
