@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        
+        
+        int numberA=0;
+        int numberB = 0;
+        int auxA = 0;
+        
+        for(int i=0; i<nums.size();i++)
+        {
+            auxA = numberA;
+            numberA = (numberA ^ nums[i]) & ~numberB;
+            numberB = (numberB ^ nums[i]) & ~(auxA ^ nums[i]);
+        }
+        
+        return numberA ^ numberB;
+        
+    }
+};
